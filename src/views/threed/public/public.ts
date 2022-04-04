@@ -10,7 +10,7 @@ interface useThree{
   initRenderer:()=>WebGLRenderer;
   initCamera:(near:number,far:number)=>PerspectiveCamera;
   initAmbientLight:()=>AmbientLight;
-  initOrbitControls:(camera:PerspectiveCamera)=>OrbitControls
+  initOrbitControls:(camera:PerspectiveCamera,dom:HTMLDivElement)=>OrbitControls
   initGridHelper:(size:number,divisions : number)=>GridHelper
   initShadowPlan:(size:number)=>Mesh
   initPhongPlane:(size:number)=>Mesh
@@ -18,7 +18,7 @@ interface useThree{
   initStats:(dom:HTMLDivElement)=>Stats
 }
 
-export function initThreed(canvas:HTMLCanvasElement):useThree{
+export function initThreed(canvas:HTMLCanvasElement,dom:HTMLDivElement):useThree{
 
   const initScene=function(){
     const scene=new Scene()
@@ -43,8 +43,8 @@ export function initThreed(canvas:HTMLCanvasElement):useThree{
     return alight
   }
 
-  const initOrbitControls=function(camera:PerspectiveCamera):OrbitControls{
-    const control=new OrbitControls(camera,canvas)
+  const initOrbitControls=function(camera:PerspectiveCamera,dom:HTMLDivElement):OrbitControls{
+    const control=new OrbitControls(camera,dom)
     control.enableDamping=true
     control.dampingFactor=0.05
     return control
@@ -72,7 +72,7 @@ export function initThreed(canvas:HTMLCanvasElement):useThree{
     return plan
   }
 
-  const initDatGui=function(dom:HTMLDivElement):GUI{
+  const initDatGui=function():GUI{
     const dat=new GUI()
     dat.addFolder("测试GUI")
     dat.domElement.style.position = 'absolute'
@@ -82,7 +82,7 @@ export function initThreed(canvas:HTMLCanvasElement):useThree{
     return dat
   }
 
-  const initStats=function(dom:HTMLDivElement):Stats{
+  const initStats=function():Stats{
     const stats=new Stats()
     stats.dom.style.position="absolute"
     stats.dom.style.left="0px"

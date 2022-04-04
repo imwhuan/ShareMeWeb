@@ -10,16 +10,19 @@ import type { OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import { defineComponent} from 'vue'
 import { initModelTest} from './Index';
 //import { initAllDirectionLight } from '../light/direlight/Index'
-import {initAllSpotLight} from '../light/spotlight/Index'
-import {initThreed} from '../public'
+import {initAllSpotLight} from '../public/light/spotlight/Index'
+import {initThreed} from '../public/public'
 import type Stats from 'stats.js'
 //import type { GUI } from 'dat.gui'
+import { addResizeEvent,removeResizeEvent } from '@/plugins/WinResizeEvent'
 
 let scene:Scene,camera:PerspectiveCamera,renderer:WebGLRenderer,frametime:number,control:OrbitControls,stats:Stats;
 
 export default defineComponent({
     mounted(){
-        const {initScene,initRenderer,initCamera,initOrbitControls,initPhongPlane,initAmbientLight,initDatGui,initStats}=initThreed(this.$refs.canvas as HTMLCanvasElement)
+        const {
+            initScene,initRenderer,initCamera,initOrbitControls,initPhongPlane,initAmbientLight,initDatGui,initStats
+            }=initThreed(this.$refs.canvas as HTMLCanvasElement,this.$refs.contain as HTMLDivElement)
         scene=initScene()
         renderer=initRenderer()
         camera=initCamera(0.1,40)
@@ -28,7 +31,7 @@ export default defineComponent({
         //cube=initBox()
         //scene.add(cube)
         scene.add(initAmbientLight())
-        control=initOrbitControls(camera)
+        control=initOrbitControls(camera,this.$refs.contain as HTMLDivElement)
         control.maxDistance=30
         control.minDistance=0.4
         //聚光灯
@@ -55,9 +58,11 @@ export default defineComponent({
             alert(err)
         })
         this.animate()
+        addResizeEvent(this.winResize)
     },
     unmounted(){
         cancelAnimationFrame(frametime)
+        removeResizeEvent(this.winResize)
     },
     methods:{
         animate(){
@@ -67,6 +72,12 @@ export default defineComponent({
             // cube.rotation.y+=0.01
             stats.update()
             control.update()
+        },
+        winResize(){
+            //console.log("触发Resize")
+            camera.aspect=window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth,window.innerHeight)
         }
     }
 })

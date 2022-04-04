@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "@types/stats.js": "^0.17.0",
+    "ant-design-vue": "^3.1.0-rc.2",
+    "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "dat.gui": "^0.7.9",
     "stats.js": "^0.17.0",
     "three": "^0.138.3",
+    "vditor": "^3.8.12",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0"
