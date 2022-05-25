@@ -14,6 +14,9 @@
             <a-button @click="About">关于</a-button>
           </a-col>
           <a-col>
+            <a-button @click="NoLogin">游客</a-button>
+          </a-col>
+          <a-col>
             <a-button @click="form='LoginForm'" v-if="form=='RegisterForm'">登录</a-button>
             <a-button @click="form='RegisterForm'" v-else>注册</a-button>
           </a-col>
@@ -69,6 +72,9 @@ export default defineComponent({
       },
       About(){
         this.$router.push('/about')
+      },
+      NoLogin(){
+        this.$router.replace({name:'Home'})
       }
     }
 })

@@ -43,16 +43,26 @@
   </a-form>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref,getCurrentInstance } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import { Register } from '@/http/ShareMeServer'
 export default defineComponent({
+  emits:{
+    loginres:(success:boolean,msg:string)=>{
+      if(success){
+        return {res:20,msg}
+      }else{
+        return {res:21,msg}
+      }
+    }
+  },
   components: {
     UserOutlined,
     LockOutlined,
   },
   setup() {
+    const instance=getCurrentInstance()
     const formRef = ref();
     const formState = reactive({
         Name:'',
@@ -76,7 +86,7 @@ export default defineComponent({
         return Promise.reject('请输入密码！');
       } else {
         if (formState.checkPwd !== '') {
-          formRef.value.validateFields('checkPass');
+          formRef.value.validateFields('checkPwd');
         }
         return Promise.resolve();
       }
@@ -116,9 +126,11 @@ export default defineComponent({
       Register(formState.Name,formState.Password).then(res=>{
         message.success({ content: "注册成功！"+res.data,key: msgkey })
         logining.value=false
+        instance?.emit("loginres",true,res.data)
       }).catch(err=>{
         message.error({ content: "注册失败！"+err.message,key: msgkey })
         logining.value=false
+        instance?.emit("loginres",false,err.message)
       })
       //console.log("成功",values, formState);
     };

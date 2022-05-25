@@ -49,25 +49,35 @@
   </a-form>
 </template>
 <script lang="ts">
-import { defineComponent, reactive,ref } from 'vue';
+import { defineComponent, reactive,ref,getCurrentInstance } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import { Login } from '@/plugins/Account'
-import { useRouter} from 'vue-router'
+//import { useRouter} from 'vue-router'
 export default defineComponent({
+  emits:{
+    loginres:(success:boolean,msg:string)=>{
+      if(success){
+        return {res:10,msg}
+      }else{
+        return {res:11,msg}
+      }
+    }
+  },
   components: {
     UserOutlined,
     LockOutlined,
   },
 
   setup() {
-    const router=useRouter();
+    //const router=useRouter();
     const formState = reactive({
       username: '',
       password: '',
       remember: true,
     });
     const logining=ref(false)
+    const instance=getCurrentInstance()
     const onFinish = () => {
       logining.value=true
       //console.log('Success:', values);
@@ -77,13 +87,15 @@ export default defineComponent({
         sessionStorage.setItem("username",formState.username)
         logining.value=false
         message.success({ content: "登录成功！,即将跳转至首页...",key: msgkey })
-        setTimeout(()=>{
-          router.replace({name:'Home'})
-        },1000)
+        instance?.emit("loginres",true,"登录成功")
+        // setTimeout(()=>{
+        //   router.replace({name:'Home'})
+        // },1000)
       }).catch(err=>{
         logining.value=false
         console.log('Failed:', err);
         message.error({ content: "登录失败！"+err.message,key: msgkey })
+        instance?.emit("loginres",false,"登录失败！"+err.message)
       })
     };
 

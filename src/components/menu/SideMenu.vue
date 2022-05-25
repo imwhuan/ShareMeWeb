@@ -9,7 +9,7 @@
           <video-camera-outlined />
           <span>关于</span>
         </a-menu-item>
-        <a-menu-item key="editor">
+        <a-menu-item key="editorindex">
           <upload-outlined />
           <span>编辑器</span>
         </a-menu-item>
@@ -27,6 +27,22 @@
         </a-menu-item-group>
         <a-menu-item-group key="g2" title="其他">
           <a-menu-item key="bingdd2">未定义</a-menu-item>
+        </a-menu-item-group>
+      </a-sub-menu>
+      <a-sub-menu key="live">
+        <template #icon>
+          <upload-outlined />
+        </template>
+        <template #title>直播平台</template>
+        <a-menu-item-group key="live-out">
+          <template #icon>
+            <upload-outlined />
+          </template>
+          <template #title>展示</template>
+          <a-menu-item key="liveindex">主页</a-menu-item>
+        </a-menu-item-group>
+        <a-menu-item-group key="g2" title="个人中心">
+          <a-menu-item key="myliveindex">主页</a-menu-item>
         </a-menu-item-group>
       </a-sub-menu>
       </a-menu>

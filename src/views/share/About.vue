@@ -138,7 +138,8 @@ import {
   CheckCircleOutlined,
   SyncOutlined,
   CloseCircleOutlined,
-  ExclamationCircleOutlined
+  ExclamationCircleOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons-vue';
 export default defineComponent({
     components: {
@@ -150,6 +151,7 @@ export default defineComponent({
   SyncOutlined,
   CloseCircleOutlined,
   ExclamationCircleOutlined,
+  ClockCircleOutlined,
       ContentLayout,
       StationHeader
     },
