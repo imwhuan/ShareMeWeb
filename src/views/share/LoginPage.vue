@@ -50,7 +50,7 @@
 <script>
 import LoginForm from '@/components/login/LoginForm.vue'
 import RegisterForm from '@/components/login/RegisterForm.vue'
-import {GetImageUrl} from '@/http/ShareMeServer'
+import {GetImageUrl} from '@/http/GetHttpUrl'
 import { defineComponent} from 'vue';
 
 import {

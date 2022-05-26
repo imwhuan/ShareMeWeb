@@ -2,13 +2,13 @@
   <div class="gutter-example">
     <a-row :gutter="[16,16]" justify="center">
       <a-col class="gutter-row" flex="100px">
-         <a-avatar :size="64" :src="headimg" />
+         <a-avatar :size="64" :src="global.uheadimg" />
       </a-col>
       <a-col class="gutter-row" flex="auto">
         <a-row :gutter="[16,8]" justify="space-between">
             <a-col class="gutter-row" :xs="24" :sm="24" :md="14">
               <a-space direction="vertical">
-                <a-typography-text>{{hello}}, {{username}}, 开始您一天的工作吧！</a-typography-text>
+                <a-typography-text>{{hello}}, {{global.uname}}, 开始您一天的工作吧！</a-typography-text>
                 <a-typography-text type="secondary">今日晴，20℃ - 32℃！😄👻🎇💕😁👩🎊🎞️🎠🎡🖼️🧶🥪🥯</a-typography-text>
               </a-space>
             </a-col>
@@ -41,9 +41,10 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import {GetImageUrl} from '../../http/ShareMeServer'
+import { defineComponent,ref } from 'vue';
+import {GetImageUrl} from '@/http/GetHttpUrl'
 import {UserInfo} from '@/plugins/Account';
+import { GlobalData } from "@/plugins/GlobalData";
 
 export default defineComponent({
   data(){
@@ -59,7 +60,8 @@ export default defineComponent({
     return {
       headimg:GetImageUrl("heads/h1.jpeg"),
       username:UserInfo.name,
-      hello
+      hello,
+      global:ref(GlobalData)
     }
   }
 })

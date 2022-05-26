@@ -1,5 +1,9 @@
 import ShareMeServer from "./LiveWebServer";
-import type { ShareMeDataModel, ShareMeRegistModel } from "./ShareMeServerModel";
+import type {
+  ShareMeDataModel,
+  ShareMeRegistModel,
+  LiveUserInfoBaseModel,
+} from "./ShareMeServerModel";
 import { SaveUserInfo, SaveUserToken } from "@/plugins/UseLocalDB";
 
 /**
@@ -63,7 +67,7 @@ async function Login(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
     const resData: ShareMeDataModel = res.data;
     if (resData.success) {
       SaveUserToken(resData.tag);
-      SaveUserInfo(JSON.stringify(resData.data));
+      SaveUserInfo(resData.data);
     }
     return Promise.resolve(resData);
   } catch (err) {
@@ -71,4 +75,63 @@ async function Login(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
   }
 }
 
-export { UserInfo, RegisterSendVertifyCode, Register, LoginSendVertifyCode, Login };
+/**
+ * 获取当前登录用户信息
+ * @returns 用户信息
+ */
+async function GetCurrentUser(): Promise<ShareMeDataModel> {
+  try {
+    const res = await ShareMeServer.get("User/GetCurrentUserInfo");
+    console.log("GetCurrentUser请求结果", res);
+    const resData: ShareMeDataModel = res.data;
+    if (resData.success) {
+      SaveUserInfo(resData.data);
+    }
+    return Promise.resolve(resData);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+/**
+ * 修改当前登录用户信息
+ * @param data 修改后的信息
+ * @returns
+ */
+async function PutCurrentUserBase(data: LiveUserInfoBaseModel): Promise<ShareMeDataModel> {
+  try {
+    const res = await ShareMeServer.put("User/PutCurrentUserInfoBase", data);
+    console.log("GetCurrentUser请求结果", res);
+    const resData: ShareMeDataModel = res.data;
+    if (resData.success) {
+      SaveUserInfo(resData.data);
+    }
+    return Promise.resolve(resData);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+// async function UploadUserHeadImg(data: LiveUserInfoBaseModel): Promise<ShareMeDataModel> {
+//   try {
+//     const res = await ShareMeServer.put("User/PutCurrentUserInfoBase", data);
+//     console.log("GetCurrentUser请求结果", res);
+//     const resData: ShareMeDataModel = res.data;
+//     if (resData.success) {
+//       SaveUserInfo(resData.data);
+//     }
+//     return Promise.resolve(resData);
+//   } catch (err) {
+//     return Promise.reject(err);
+//   }
+// }
+
+export {
+  UserInfo,
+  RegisterSendVertifyCode,
+  Register,
+  LoginSendVertifyCode,
+  Login,
+  GetCurrentUser,
+  PutCurrentUserBase,
+};

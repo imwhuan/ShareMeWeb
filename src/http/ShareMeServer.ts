@@ -120,8 +120,8 @@ async function GetSysSetting(name: string, key: string): Promise<ShareMeDataMode
   }
 }
 
-function GetImageUrl(name: string): string {
-  return process.env.VUE_APP_IMAGES + name;
-}
+// function GetImageUrl(name: string): string {
+//   return process.env.VUE_APP_IMAGES + name;
+// }
 
-export { ShareMeServer, Register, GetSysSetting, GetImageUrl };
+export { ShareMeServer, Register, GetSysSetting };

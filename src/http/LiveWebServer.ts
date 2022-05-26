@@ -1,6 +1,6 @@
 import axios from "axios";
 import { notification } from "ant-design-vue";
-import { GetUserData } from "@/plugins/UseLocalDB";
+import { GetUserToken } from "@/plugins/UseLocalDB";
 import { ShareMeDataModel } from "./ShareMeServerModel";
 
 const BaseUrl = process.env.VUE_APP_SERVER_LIVE;
@@ -21,9 +21,9 @@ ShareMeServer.defaults.headers.post["Content-Type"] = "application/json;charset=
 //------------在发送请求之前做些什么------------//
 ShareMeServer.interceptors.request.use(
   (config) => {
-    if (GetUserData("token")) {
+    if (GetUserToken()) {
       if (config.headers) {
-        config.headers.Authorization = "Bearer " + GetUserData("token");
+        config.headers.Authorization = "Bearer " + GetUserToken();
       }
     }
     console.log("准备请求");

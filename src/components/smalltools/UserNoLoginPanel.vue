@@ -5,7 +5,7 @@
         <template #cover>
           <img
             alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            :src="bgimg"
           />
         </template>
         <template #actions>
@@ -43,7 +43,7 @@
 import { LoginOutlined,UserOutlined,ImportOutlined } from '@ant-design/icons-vue';
 import { defineComponent,ref } from 'vue';
 import LoginPageDialog from '@/views/share/LoginPageDialog.vue'
-import {GetImageUrl} from '@/http/ShareMeServer'
+import {GetImageUrl} from '@/http/GetHttpUrl'
 
 export default defineComponent({
   emits:{

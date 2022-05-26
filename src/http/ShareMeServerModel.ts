@@ -30,10 +30,25 @@ interface ShareMeSysSetting {
 }
 interface LiveUserInfoModel {
   id: number;
+  age: number;
+  yanZhi: number;
   name: string;
+  describe: string;
+  address: string;
+  sex: number;
   phone: string;
-  createtime: string;
+  createTime: string;
   userImageUrl: string;
+}
+
+interface LiveUserInfoBaseModel {
+  id: number;
+  age: number;
+  name: string;
+  describe: string;
+  address: string;
+  sex: number;
+  yanZhi: number;
 }
 export {
   ShareMeDataModel,
@@ -41,4 +56,5 @@ export {
   ShareMeLoginModel,
   ShareMeSysSetting,
   LiveUserInfoModel,
+  LiveUserInfoBaseModel,
 };

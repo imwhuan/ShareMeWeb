@@ -1,4 +1,9 @@
 import type { LiveUserInfoModel } from "@/http/ShareMeServerModel";
+import { GlobalData } from "@/plugins/GlobalData";
+import { GetImageUrl } from "@/http/GetHttpUrl";
+import { ref } from "vue";
+
+const global = ref(GlobalData);
 
 function AddUserData(key: string, val: string): void {
   if (localStorage.getItem("rememberme") == "1") {
@@ -15,13 +20,27 @@ function GetUserData(key: string): string | null {
     return sessionStorage.getItem(key);
   }
 }
-
-function SaveUserInfo(data: string): void {
+/**
+ * 将用户信息缓存到本地
+ * @param data 用户信息
+ */
+function SaveUserInfo(data: LiveUserInfoModel): void {
+  global.value.uname = data.name;
+  global.value.uheadimg = GetImageUrl(data.userImageUrl);
   if (localStorage.getItem("rememberme") == "1") {
-    localStorage.setItem("user", data);
+    localStorage.setItem("user", JSON.stringify(data));
   } else {
-    sessionStorage.setItem("user", data);
+    sessionStorage.setItem("user", JSON.stringify(data));
   }
+}
+function UpdateUserHeadImg(data: LiveUserInfoModel): string {
+  global.value.uheadimg = GetImageUrl(data.userImageUrl);
+  if (localStorage.getItem("rememberme") == "1") {
+    localStorage.setItem("user", JSON.stringify(data));
+  } else {
+    sessionStorage.setItem("user", JSON.stringify(data));
+  }
+  return data.userImageUrl;
 }
 function SaveUserToken(data: string): void {
   if (localStorage.getItem("rememberme") == "1") {
@@ -68,6 +87,24 @@ function ClearUserData(): void {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("token");
   }
+  global.value.uname = "";
+  global.value.uheadimg = "";
+}
+
+function CheckUserLogined(): boolean {
+  if (localStorage.getItem("rememberme") == "1") {
+    if (localStorage.getItem("user")) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    if (sessionStorage.getItem("user")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 export {
@@ -78,4 +115,6 @@ export {
   GetUserInfo,
   GetUserToken,
   ClearUserData,
+  CheckUserLogined,
+  UpdateUserHeadImg,
 };

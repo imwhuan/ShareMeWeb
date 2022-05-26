@@ -42,7 +42,7 @@
 <script lang="ts">
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue';
 import { defineComponent } from 'vue';
-import {GetImageUrl} from '@/http/ShareMeServer'
+import {GetImageUrl} from '@/http/GetHttpUrl'
 import ContentLayout from '@/components/layout/ContentLayout.vue'
 import StationHeader from '@/components/home/StationHeader.vue'
 

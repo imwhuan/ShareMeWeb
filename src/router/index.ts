@@ -4,7 +4,7 @@ import LoginPage from "../views/share/LoginPage.vue";
 import Result403 from "@/views/share/Result403.vue";
 import NotFound from "@/views/share/NotFound.vue";
 import About from "@/views/share/About.vue";
-//import { UserInfo } from "@/plugins/Account";
+import { CheckUserLogined } from "@/plugins/UseLocalDB";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -66,6 +66,17 @@ const routes: Array<RouteRecordRaw> = [
         path: "/myliveindex",
         name: "myliveindex",
         component: () => import(/* webpackChunkName: "live" */ "../views/live/MyIndex.vue"),
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: "/userinfo",
+        name: "userinfo",
+        component: () => import(/* webpackChunkName: "user" */ "../views/user/UserInfoCenter.vue"),
+        meta: {
+          auth: true,
+        },
       },
     ],
   },
@@ -101,17 +112,26 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to,from,next)=>{
-//   if(to.matched.some(r=>r.meta.share)){
-//     next()
-//   }
-//   else{
-//     if(UserInfo.auth){
-//       next()
-//     }else{
-//       next({name:'Login'})
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // if(to.matched.some(r=>r.meta.share)){
+  //   next()
+  // }
+  // else{
+  //   if(CheckUserLogined()){
+  //     next()
+  //   }else{
+  //     next({name:'Login'})
+  //   }
+  // }
+  if (to.matched.some((r) => r.meta.auth)) {
+    if (CheckUserLogined()) {
+      next();
+    } else {
+      next({ name: "forbid" });
+    }
+  } else {
+    next();
+  }
+});
 
 export default router;
