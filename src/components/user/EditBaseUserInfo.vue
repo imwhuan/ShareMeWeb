@@ -44,9 +44,9 @@
       :rules="[{ required: true, message: 'Please pick an item!' }]"
     >
       <a-radio-group v-model:value="formState.sex">
-        <a-radio-button value="1">男神</a-radio-button>
-        <a-radio-button value="2">女神</a-radio-button>
-        <a-radio-button value="3">保密</a-radio-button>
+        <a-radio-button :value="1">男神</a-radio-button>
+        <a-radio-button :value="2">女神</a-radio-button>
+        <a-radio-button :value="3">保密</a-radio-button>
       </a-radio-group>
     </a-form-item>
     

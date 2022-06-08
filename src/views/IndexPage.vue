@@ -7,36 +7,28 @@
       <a-button type="primary" @click="toLogin">去登录</a-button>
     </template>
   </a-result>
-  <a-modal v-model:visible="loginvisible" title="登录" :footer="null">
-    <div class="loginbgpanel" :style="{ backgroundImage: 'url('+bgimg+')'}"></div>
-      <login-page-dialog></login-page-dialog>
-    </a-modal>
 </template>
 <script lang="ts">
 import { SmileTwoTone } from '@ant-design/icons-vue';
-import { defineComponent,ref } from 'vue';
-import LoginPageDialog from '@/views/share/LoginPageDialog.vue'
-import {GetImageUrl} from '@/http/GetHttpUrl'
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     data(){
       return {
         welcome_world:"*/+-",
-        loginvisible:ref(false),
-        bgimg:GetImageUrl('few50.jpeg')
       }
     },
     methods:{
         toLogin(){
-            this.$router.push('/login')
-            //this.loginvisible=true
+            //this.$router.push('/login')
+            this.$router.push('/home')
         }
     },
     mounted(){
-      this.welcome_world=sessionStorage.getItem("web-welcome")??"*/+-"
+      this.welcome_world=sessionStorage.getItem("web-welcome")??"你好啊 旅行者，欢迎使用SharMe平台~"
     },
   components: {
-    SmileTwoTone,LoginPageDialog
+    SmileTwoTone
   },
 });
 </script>

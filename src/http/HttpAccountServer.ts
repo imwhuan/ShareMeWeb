@@ -112,19 +112,21 @@ async function PutCurrentUserBase(data: LiveUserInfoBaseModel): Promise<ShareMeD
   }
 }
 
-// async function UploadUserHeadImg(data: LiveUserInfoBaseModel): Promise<ShareMeDataModel> {
-//   try {
-//     const res = await ShareMeServer.put("User/PutCurrentUserInfoBase", data);
-//     console.log("GetCurrentUser请求结果", res);
-//     const resData: ShareMeDataModel = res.data;
-//     if (resData.success) {
-//       SaveUserInfo(resData.data);
-//     }
-//     return Promise.resolve(resData);
-//   } catch (err) {
-//     return Promise.reject(err);
-//   }
-// }
+async function UploadUserHeadImg(file: Blob, filename: string): Promise<ShareMeDataModel> {
+  try {
+    const ReqForm = new FormData();
+    ReqForm.append("file", file, filename);
+    const res = await ShareMeServer.post("User/UpUserHeadImg", ReqForm);
+    console.log("UploadUserHeadImg请求结果", res);
+    const resData: ShareMeDataModel = res.data;
+    if (resData.success) {
+      SaveUserInfo(resData.data);
+    }
+    return Promise.resolve(resData);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
 
 export {
   UserInfo,
@@ -134,4 +136,5 @@ export {
   Login,
   GetCurrentUser,
   PutCurrentUserBase,
+  UploadUserHeadImg,
 };

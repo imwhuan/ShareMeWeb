@@ -37,7 +37,9 @@
       </a-layout-header>
       <a-layout-content class="scrollbar" style="minHeight: 280px">
       <a-layout>
-      <router-view/>
+        <a-layout-content>
+        <router-view/>
+        </a-layout-content>
       <a-layout-footer style="text-align: center">
         <a-tag color="green">imwhuan</a-tag>
         <br/>

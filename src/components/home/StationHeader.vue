@@ -44,7 +44,7 @@
 import { defineComponent,ref } from 'vue';
 import {GetImageUrl} from '@/http/GetHttpUrl'
 import {UserInfo} from '@/plugins/Account';
-import { GlobalData } from "@/plugins/GlobalData";
+import GlobalData from "@/plugins/GlobalData";
 
 export default defineComponent({
   data(){

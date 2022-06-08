@@ -14,6 +14,12 @@
     <a-tab-pane key="3" tab="积分充值">
       <account-points></account-points>
     </a-tab-pane>
+    <a-tab-pane key="4" tab="头像裁剪">
+      <head-img-cropper :Name="'file'"></head-img-cropper>
+    </a-tab-pane>
+    <a-tab-pane key="5" tab="更换头像">
+      <show-user-head-img></show-user-head-img>
+    </a-tab-pane>
   </a-tabs>
     </template>
 </content-layout>
@@ -26,6 +32,8 @@ import AccountPoints from '@/components/user/AccountPoints.vue'
 import UserHeadImg from '@/components/user/UserHeadImg.vue'
 import ContentLayout from '@/components/layout/ContentLayout.vue'
 import StationHeader from '@/components/home/StationHeader.vue'
+import HeadImgCropper from '@/components/editor/HeadImgCropper.vue'
+import ShowUserHeadImg from '@/components/user/ShowUserHeadImg.vue'
 export default defineComponent({
   data(){
     return{
@@ -33,7 +41,7 @@ export default defineComponent({
     }
   },
   components:{
-    BaseUserInfo,AccountPoints,ContentLayout,StationHeader,UserHeadImg
+    BaseUserInfo,AccountPoints,ContentLayout,StationHeader,UserHeadImg,HeadImgCropper,ShowUserHeadImg
   }
 })
 </script>

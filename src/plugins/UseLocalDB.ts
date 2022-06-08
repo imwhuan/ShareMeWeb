@@ -1,9 +1,9 @@
 import type { LiveUserInfoModel } from "@/http/ShareMeServerModel";
-import { GlobalData } from "@/plugins/GlobalData";
+import GlobalData from "@/plugins/GlobalData";
 import { GetImageUrl } from "@/http/GetHttpUrl";
-import { ref } from "vue";
+import { reactive } from "vue";
 
-const global = ref(GlobalData);
+const global = reactive(GlobalData);
 
 function AddUserData(key: string, val: string): void {
   if (localStorage.getItem("rememberme") == "1") {
@@ -25,8 +25,9 @@ function GetUserData(key: string): string | null {
  * @param data 用户信息
  */
 function SaveUserInfo(data: LiveUserInfoModel): void {
-  global.value.uname = data.name;
-  global.value.uheadimg = GetImageUrl(data.userImageUrl);
+  console.log("数据", global, GlobalData);
+  global.uheadimg = GetImageUrl(data.userImageUrl);
+  global.uname = data.name;
   if (localStorage.getItem("rememberme") == "1") {
     localStorage.setItem("user", JSON.stringify(data));
   } else {
@@ -34,7 +35,7 @@ function SaveUserInfo(data: LiveUserInfoModel): void {
   }
 }
 function UpdateUserHeadImg(data: LiveUserInfoModel): string {
-  global.value.uheadimg = GetImageUrl(data.userImageUrl);
+  global.uheadimg = GetImageUrl(data.userImageUrl);
   if (localStorage.getItem("rememberme") == "1") {
     localStorage.setItem("user", JSON.stringify(data));
   } else {
@@ -87,8 +88,8 @@ function ClearUserData(): void {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("token");
   }
-  global.value.uname = "";
-  global.value.uheadimg = "";
+  global.uname = "";
+  global.uheadimg = "";
 }
 
 function CheckUserLogined(): boolean {
@@ -105,6 +106,12 @@ function CheckUserLogined(): boolean {
       return false;
     }
   }
+}
+
+const localData = GetUserInfo();
+if (localData) {
+  GlobalData.uname = localData.name;
+  GlobalData.uheadimg = GetImageUrl(localData.userImageUrl);
 }
 
 export {

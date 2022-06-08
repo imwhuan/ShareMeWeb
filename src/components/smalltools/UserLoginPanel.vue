@@ -11,7 +11,7 @@
           </div>
         </template>
         <template #actions>
-          <a-tooltip title="设置" color="cyan">
+          <a-tooltip title="设置" color="cyan" @click="touserinfo">
             <setting-outlined key="setting" />
           </a-tooltip>
 
@@ -20,7 +20,7 @@
           </a-tooltip>
           
           <a-tooltip title="资料" color="cyan">
-            <ellipsis-outlined key="ellipsis"  @click="touserinfo"/>
+            <ellipsis-outlined key="ellipsis" />
           </a-tooltip>
           
           <a-tooltip title="退出" color="cyan">
@@ -49,7 +49,7 @@ import { UserOutlined,SettingOutlined, EditOutlined, EllipsisOutlined,LogoutOutl
 import { defineComponent,ref } from 'vue';
 import { ClearUserData,GetUserInfo } from "@/plugins/UseLocalDB";
 import {GetImageUrl} from '@/http/GetHttpUrl'
-import { GlobalData } from "@/plugins/GlobalData";
+import GlobalData from "@/plugins/GlobalData";
 
 export default defineComponent({
   emits:{

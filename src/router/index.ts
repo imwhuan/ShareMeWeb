@@ -71,6 +71,16 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/tobeanchorguide",
+        name: "tobeanchorguide",
+        component: () => import(/* webpackChunkName: "live" */ "../views/live/TobeAnchorGuide.vue"),
+      },
+      {
+        path: "/anchorapplypage",
+        name: "anchorapplypage",
+        component: () => import(/* webpackChunkName: "live" */ "../views/live/AnchorApplyPage.vue"),
+      },
+      {
         path: "/userinfo",
         name: "userinfo",
         component: () => import(/* webpackChunkName: "user" */ "../views/user/UserInfoCenter.vue"),

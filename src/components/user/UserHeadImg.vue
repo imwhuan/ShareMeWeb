@@ -82,7 +82,7 @@ import type { UploadChangeParam} from 'ant-design-vue';//, UploadProps
 import { message,notification } from 'ant-design-vue';
 import {GetUpHeadImgUrl} from '@/http/GetHttpUrl'
 import { GetUserToken,UpdateUserHeadImg } from "@/plugins/UseLocalDB";
-import { GlobalData } from "@/plugins/GlobalData";
+import GlobalData from "@/plugins/GlobalData";
 
 // function getBase64(img: Blob|any, callback: (base64Url: string) => void) {
 //   const reader = new FileReader();
