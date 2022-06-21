@@ -58,27 +58,48 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "editor" */ "../views/editor/Index.vue"),
       },
       {
-        path: "/liveindex",
-        name: "liveindex",
-        component: () => import(/* webpackChunkName: "live" */ "../views/live/Index.vue"),
-      },
-      {
-        path: "/myliveindex",
-        name: "myliveindex",
-        component: () => import(/* webpackChunkName: "live" */ "../views/live/MyIndex.vue"),
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: "/tobeanchorguide",
-        name: "tobeanchorguide",
-        component: () => import(/* webpackChunkName: "live" */ "../views/live/TobeAnchorGuide.vue"),
-      },
-      {
-        path: "/anchorapplypage",
-        name: "anchorapplypage",
-        component: () => import(/* webpackChunkName: "live" */ "../views/live/AnchorApplyPage.vue"),
+        path: "/live",
+        name: "live",
+        component: () => import(/* webpackChunkName: "live" */ "../views/live/Layout.vue"),
+        children: [
+          {
+            path: "/index",
+            name: "liveindex",
+            component: () => import(/* webpackChunkName: "live" */ "../views/live/Index.vue"),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: "/index",
+            name: "myliveindex",
+            component: () => import(/* webpackChunkName: "live" */ "../views/live/MyIndex.vue"),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: "/liveadminindex",
+            name: "liveadminindex",
+            component: () =>
+              import(/* webpackChunkName: "live" */ "../views/live/adamin/AnchorApprovePage.vue"),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: "/tobeanchorguide",
+            name: "tobeanchorguide",
+            component: () =>
+              import(/* webpackChunkName: "live" */ "../views/live/TobeAnchorGuide.vue"),
+          },
+          {
+            path: "/anchorapplypage",
+            name: "anchorapplypage",
+            component: () =>
+              import(/* webpackChunkName: "live" */ "../views/live/AnchorApplyPage.vue"),
+          },
+        ],
       },
       {
         path: "/userinfo",

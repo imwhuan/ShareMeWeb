@@ -59,7 +59,7 @@
             </template>
             右旋转
           </a-button>
-          <a-button @click="uploadImg('blob')" type="primary" style="background-color:rgb(65 184 131)">
+          <a-button @click="uploadImg('blob')" :loading="submitLoading" type="primary" style="background-color:rgb(65 184 131)">
             <template #icon>
               <cloud-upload-outlined />
             </template>
@@ -89,6 +89,7 @@ export default defineComponent({
   data() {
     return {
       global:ref(GlobalData),
+      submitLoading: ref(false),
       name:this.Name,
       previews: {},
       option:{
@@ -162,6 +163,7 @@ export default defineComponent({
     },
     //上传图片
     uploadImg (type) {
+      this.submitLoading=true
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const Instance = this;
       if (type === 'blob') {
@@ -172,6 +174,7 @@ export default defineComponent({
             console.log("上传图片成功！",res)
             message.success("上传成功")
             Instance.$emit("uploadfinish",res.data)
+            Instance.submitLoading=false
           }).catch(err=>{
             console.log("上传图片出错！",err)
             message.error('上传图片出错！');
@@ -180,6 +183,7 @@ export default defineComponent({
                 notification.error({message:"上传图片出错！",description:err.message})
               }
             }
+            Instance.submitLoading=false
           })
         })
       }

@@ -116,7 +116,7 @@ async function UploadUserHeadImg(file: Blob, filename: string): Promise<ShareMeD
   try {
     const ReqForm = new FormData();
     ReqForm.append("file", file, filename);
-    const res = await ShareMeServer.post("User/UpUserHeadImg", ReqForm);
+    const res = await ShareMeServer.post("User/PostUserHeadImg", ReqForm);
     console.log("UploadUserHeadImg请求结果", res);
     const resData: ShareMeDataModel = res.data;
     if (resData.success) {

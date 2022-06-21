@@ -50,6 +50,15 @@ interface LiveUserInfoBaseModel {
   sex: number;
   yanZhi: number;
 }
+
+interface AnchorApplyModel {
+  describe: string;
+  iDCardImgBefore: string;
+  iDCardImgBehind: string;
+  anchorType: number;
+  anchorTypeDesc: string;
+}
+
 export {
   ShareMeDataModel,
   ShareMeRegistModel,
@@ -57,4 +66,5 @@ export {
   ShareMeSysSetting,
   LiveUserInfoModel,
   LiveUserInfoBaseModel,
+  AnchorApplyModel,
 };

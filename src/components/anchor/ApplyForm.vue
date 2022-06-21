@@ -88,7 +88,7 @@
 
     <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
       <a-space>
-        <a-button type="primary" html-type="submit">提交</a-button>
+        <a-button :loading="submitLoading" type="primary" html-type="submit">提交</a-button>
         <a-button html-type="reset">重置</a-button>
       </a-space>
     </a-form-item>
@@ -102,14 +102,16 @@ import GlobalData from "@/plugins/GlobalData";
 import { message,notification } from 'ant-design-vue';
 import {GetPostIDCardImgUrl} from '@/http/GetHttpUrl'
 import { GetUserToken } from "@/plugins/UseLocalDB";
+import type { AnchorApplyModel } from '@/http/ShareMeServerModel'
+import { PostApply } from '@/http/HttpAnchorApplyServer'
 
-interface FormState {
-  describe: string;
-  iDCardImgBefore: string;
-  iDCardImgBehind: string;
-  anchorType: number;
-  anchorTypeDesc: string;
-}
+// interface FormState {
+//   describe: string;
+//   iDCardImgBefore: string;
+//   iDCardImgBehind: string;
+//   anchorType: number;
+//   anchorTypeDesc: string;
+// }
 export default defineComponent({
   components:{
     LoadingOutlined,
@@ -125,11 +127,12 @@ export default defineComponent({
       'Authorization':'Bearer '+GetUserToken(),
     }
 
+    const submitLoading= ref(false);
     const upimgurl=GetPostIDCardImgUrl()
     const global=ref(GlobalData)
     //console.log("global",GlobalData,global)
     const DiyAnchorType=ref('')
-    const formState = reactive<FormState>({
+    const formState = reactive<AnchorApplyModel>({
       describe: '',
       iDCardImgBefore: '',
       iDCardImgBehind: '',
@@ -137,8 +140,22 @@ export default defineComponent({
       anchorTypeDesc:''
     });
     const onFinish = (values: any) => {
+      submitLoading.value=true
       console.log('Success:', values);
-      message.success("提交成功")
+      PostApply(formState).then(val=>{
+        console.log("申请结果",val)
+        if(val.success){
+          message.success(val.data?'申请成功！回执编号为：'+val.data.id:'申请成功！')
+          submitLoading.value=false;
+        }else{
+          submitLoading.value=false;
+          notification.error({message:"申请失败！",description:val.message?val.message:'未返回错误信息',duration:0})
+        }
+      }).catch(err=>{
+        submitLoading.value=false;
+        console.log("错误",err)
+        notification.error({message:"申请请求发生错误！",description:err.message,duration:0})
+      })
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -189,8 +206,10 @@ export default defineComponent({
             if(side==1){
               //console.log("iDCardImgBefore",iDCardImgBefore,iDCardImgBefore.value)
               formState.iDCardImgBefore=info.file.response.data
+              formRef.value.validateFields('iDCardImgBefore');
             }else{
               formState.iDCardImgBehind=info.file.response.data
+              formRef.value.validateFields('iDCardImgBehind');
             }
             return
           }
@@ -227,6 +246,7 @@ export default defineComponent({
       formRef,
       formState,
       DiyAnchorType,
+      submitLoading,
       validateAnchorType,
       diyAnchorTypeChange,
       onFinish,

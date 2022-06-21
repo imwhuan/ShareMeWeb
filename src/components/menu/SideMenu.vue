@@ -43,6 +43,7 @@
         </a-menu-item-group>
         <a-menu-item-group key="g2" title="个人中心">
           <a-menu-item key="myliveindex">主页</a-menu-item>
+          <a-menu-item key="liveadminindex">管理员</a-menu-item>
         </a-menu-item-group>
       </a-sub-menu>
       </a-menu>

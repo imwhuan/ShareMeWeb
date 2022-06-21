@@ -24,11 +24,11 @@ export default defineComponent({
             after: () => {
                 this.contentEditor.setValue('hello, Vditor + Vue!')
             },
-            cdn:"http://172.21.244.44/npm/vditor@3.8.12",
+            cdn:"http://www.localcpu.love/npm/vditor@3.8.12",
             preview:{
                 theme:{
                     current:"light",
-                    path:"http://172.21.244.44/npm/vditor@3.8.12/dist/css/content-theme"
+                    path:"http://www.localcpu.love/npm/vditor@3.8.12/dist/css/content-theme"
                 }
             }
         })

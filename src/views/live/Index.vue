@@ -1,18 +1,18 @@
 <template>
-  直播平台{{UserInfo.auth}}
-<a-button type="dashed" v-if="UserInfo.auth">Dashed Button</a-button>
-  <a-button type="primary" @click="UserInfo.auth=true">Primary Button</a-button>
-  <a-button @click="UserInfo.auth=false">Default Button</a-button>
+  <h1>直播首页</h1>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { UserInfo } from "@/plugins/Account";
+import { defineComponent} from 'vue';
+
 export default defineComponent({
   data(){
-    return {
-      UserInfo
+    return{
+
     }
+  },
+  components:{
+
   }
 })
 </script>
