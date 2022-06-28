@@ -68,7 +68,7 @@ ShareMeServer.interceptors.response.use(
         message: "请求返回错误",
         description: "请求返回空",
       });
-      const errData: ShareMeDataModel = {
+      const errData: ShareMeDataModel<any> = {
         statusCode: 500,
         success: false,
         data: null,

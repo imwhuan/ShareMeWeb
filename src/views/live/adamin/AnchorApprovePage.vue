@@ -4,13 +4,13 @@
       <approve-list header="全部"></approve-list>
     </a-tab-pane>
     <a-tab-pane key="2" tab="待审批">
-      <approve-list header="待审批"></approve-list>
+      <approve-list-doing header="待审批"></approve-list-doing>
     </a-tab-pane>
     <a-tab-pane key="3" tab="审批通过">
-      <approve-list header="审批通过"></approve-list>
+      <approve-list-ok header="审批通过"></approve-list-ok>
     </a-tab-pane>
     <a-tab-pane key="4" tab="审批拒绝">
-      <approve-list header="审批拒绝"></approve-list>
+      <approve-list-refuse header="审批拒绝"></approve-list-refuse>
     </a-tab-pane>
     <a-tab-pane key="5" tab="我的审批记录">
       <approve-list header="我的审批记录"></approve-list>
@@ -21,6 +21,9 @@
 <script>
 import { defineComponent,ref} from 'vue';
 import ApproveList from '@/components/anchor/ApproveList.vue'
+import ApproveListDoing from '@/components/anchor/ApproveListDoing.vue'
+import ApproveListOk from '@/components/anchor/ApproveListOk.vue'
+import ApproveListRefuse from '@/components/anchor/ApproveListRefuse.vue'
 export default defineComponent({
   data(){
     return{
@@ -28,7 +31,7 @@ export default defineComponent({
     }
   },
   components:{
-    ApproveList
+    ApproveList,ApproveListDoing,ApproveListRefuse,ApproveListOk
   }
 })
 </script>

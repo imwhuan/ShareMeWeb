@@ -22,7 +22,7 @@ const UserInfo = {
  * @param data 请求数据
  * @returns 请求结果
  */
-async function RegisterSendVertifyCode(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
+async function RegisterSendVertifyCode(data: ShareMeRegistModel): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.post("Register/SendVerifyCode", data);
     console.log("SendPhoneCode请求结果", res);
@@ -32,7 +32,7 @@ async function RegisterSendVertifyCode(data: ShareMeRegistModel): Promise<ShareM
   }
 }
 
-async function Register(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
+async function Register(data: ShareMeRegistModel): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.post("Register/Register", data);
     console.log("SendPhoneCode请求结果", res);
@@ -46,7 +46,7 @@ async function Register(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
  * @param data 请求数据
  * @returns 请求结果
  */
-async function LoginSendVertifyCode(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
+async function LoginSendVertifyCode(data: ShareMeRegistModel): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.post("Login/SendVerifyCode", data);
     console.log("SendPhoneCode请求结果", res);
@@ -60,11 +60,11 @@ async function LoginSendVertifyCode(data: ShareMeRegistModel): Promise<ShareMeDa
  * @param data
  * @returns
  */
-async function Login(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
+async function Login(data: ShareMeRegistModel): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.post("Login/Login", data);
     console.log("SendPhoneCode请求结果", res);
-    const resData: ShareMeDataModel = res.data;
+    const resData: ShareMeDataModel<any> = res.data;
     if (resData.success) {
       SaveUserToken(resData.tag);
       SaveUserInfo(resData.data);
@@ -79,11 +79,11 @@ async function Login(data: ShareMeRegistModel): Promise<ShareMeDataModel> {
  * 获取当前登录用户信息
  * @returns 用户信息
  */
-async function GetCurrentUser(): Promise<ShareMeDataModel> {
+async function GetCurrentUser(): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.get("User/GetCurrentUserInfo");
     console.log("GetCurrentUser请求结果", res);
-    const resData: ShareMeDataModel = res.data;
+    const resData: ShareMeDataModel<any> = res.data;
     if (resData.success) {
       SaveUserInfo(resData.data);
     }
@@ -98,11 +98,11 @@ async function GetCurrentUser(): Promise<ShareMeDataModel> {
  * @param data 修改后的信息
  * @returns
  */
-async function PutCurrentUserBase(data: LiveUserInfoBaseModel): Promise<ShareMeDataModel> {
+async function PutCurrentUserBase(data: LiveUserInfoBaseModel): Promise<ShareMeDataModel<any>> {
   try {
     const res = await ShareMeServer.put("User/PutCurrentUserInfoBase", data);
     console.log("GetCurrentUser请求结果", res);
-    const resData: ShareMeDataModel = res.data;
+    const resData: ShareMeDataModel<any> = res.data;
     if (resData.success) {
       SaveUserInfo(resData.data);
     }
@@ -112,13 +112,13 @@ async function PutCurrentUserBase(data: LiveUserInfoBaseModel): Promise<ShareMeD
   }
 }
 
-async function UploadUserHeadImg(file: Blob, filename: string): Promise<ShareMeDataModel> {
+async function UploadUserHeadImg(file: Blob, filename: string): Promise<ShareMeDataModel<any>> {
   try {
     const ReqForm = new FormData();
     ReqForm.append("file", file, filename);
     const res = await ShareMeServer.post("User/PostUserHeadImg", ReqForm);
     console.log("UploadUserHeadImg请求结果", res);
-    const resData: ShareMeDataModel = res.data;
+    const resData: ShareMeDataModel<any> = res.data;
     if (resData.success) {
       SaveUserInfo(resData.data);
     }

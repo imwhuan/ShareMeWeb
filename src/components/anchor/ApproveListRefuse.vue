@@ -1,7 +1,17 @@
 <template>
   <a-list item-layout="horizontal" :data-source="data">
     <template #header>
-      <div>{{header}}</div>
+      <div>
+        <a-space>
+          {{header}}
+          <a-button size="small" @click="reGetData">
+            <template #icon>
+              <sync-outlined />
+            </template>
+            刷新
+          </a-button>
+        </a-space>
+      </div>
     </template>
     <template #footer>
       <div>Footer</div>
@@ -9,8 +19,7 @@
     <template #renderItem="{ item }">
       <a-list-item>
         <template #actions>
-          <a key="list-loadmore-edit">详情</a>
-          <a key="list-loadmore-more">打招呼</a>
+          <a key="list-loadmore-edit" @click="ToDetail()">查看</a>
         </template>
         <a-list-item-meta
           :description="item.describe"
@@ -43,39 +52,52 @@
 <script lang="ts">
 import { defineComponent,ref } from 'vue';
 import { GetApplyTitleList } from '@/http/HttpAnchorApplyServer'
-import { notification } from 'ant-design-vue';
+import { notification,message } from 'ant-design-vue';
 import type { ApproveTitleModel } from "@/http/ShareMeServerModel";
-
+import { SyncOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   props:["header"],
+  components:{
+    SyncOutlined
+  },
   setup() {
     const currentPageIndex = ref<number>(1);
     let currentPageSize=10;
 
     const totalDataCount = ref<number>(100);
     const data = ref<ApproveTitleModel[]>([]);
-
-    GetApplyTitleList(null,currentPageIndex.value,currentPageSize).then(res=>{
-      if(res.success){
-        data.value.length=0;
-        totalDataCount.value=res.data.total;
-        data.value=res.data.datas
-        // for(let i=0;i<res.data.datas.length;i++){
-        //   data.value.push({title:res.data.datas[i].describe})
-        // }
-      }
-    }).catch(err=>{
-      notification.error({message:"读取数据失败！",description:err.message?err.message:'未返回错误信息',duration:0})
-    })
+    const mapWhere=new Map<string,any>();
+    mapWhere.set("a.ApprovalStatus",3)
+    const reGetData=()=>{
+      GetApplyTitleList(mapWhere,currentPageIndex.value,currentPageSize).then(res=>{
+        if(res.success){
+          //data.value.length=0;
+          totalDataCount.value=res.data.total;
+          //console.log("data1",data,data.value)
+          data.value=res.data.datas
+          //console.log("data2",data,data.value)
+          // for(let i=0;i<res.data.datas.length;i++){
+          //   data.value.push({title:res.data.datas[i].describe})
+          // }
+        }
+      }).catch(err=>{
+        notification.error({message:"读取数据失败！",description:err.message?err.message:'未返回错误信息',duration:0})
+      })
+    }
     const onPageChange = (page:number, pageSize:number) => {
       console.log('Page: ', page, pageSize);
-      //currentPageSize=pageSize
-      GetApplyTitleList(null,page,pageSize)
+      currentPageSize=pageSize
+      currentPageIndex.value=page
+      reGetData();
+      //GetApplyTitleList(mapWhere,page,pageSize)
     };
-
+    const ToDetail=()=>{
+      message.success("查看详细页还没有做！！")
+    };
+    reGetData();
     return {
-      data,currentPageIndex,currentPageSize,totalDataCount,onPageChange
+      data,currentPageIndex,currentPageSize,totalDataCount,onPageChange,ToDetail,reGetData
     };
   },
 });

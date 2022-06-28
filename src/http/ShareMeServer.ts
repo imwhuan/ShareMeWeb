@@ -87,7 +87,7 @@ ShareMeServer.interceptors.response.use(
 //     }
 //     //return BaseRequest().post(baseserve.funcs.login,{name:name,password:pwd})
 // }
-async function Register(name: string, password: string): Promise<ShareMeDataModel> {
+async function Register(name: string, password: string): Promise<ShareMeDataModel<any>> {
   try {
     const data: ShareMeRegistModel = {
       name,
@@ -103,7 +103,7 @@ async function Register(name: string, password: string): Promise<ShareMeDataMode
     return Promise.reject(err);
   }
 }
-async function GetSysSetting(name: string, key: string): Promise<ShareMeDataModel> {
+async function GetSysSetting(name: string, key: string): Promise<ShareMeDataModel<any>> {
   return Promise.reject("暂时取消该方法");
   try {
     let requrl = "Setting";

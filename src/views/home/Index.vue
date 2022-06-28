@@ -42,7 +42,6 @@
 <script lang="ts">
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue';
 import { defineComponent } from 'vue';
-import {GetImageUrl} from '@/http/GetHttpUrl'
 import ContentLayout from '@/components/layout/ContentLayout.vue'
 import StationHeader from '@/components/home/StationHeader.vue'
 
@@ -50,9 +49,9 @@ const listData: Record<string, string>[] = [];
 
 for (let i = 0; i < 23; i++) {
   listData.push({
-    href: GetImageUrl('heads/h'.concat((i%7).toString(),'.jpeg')),
+    href: '/images/heads/h'.concat((i%7).toString(),'.jpeg'),
     title: `Share Me ${i}`,
-    avatar:  GetImageUrl('heads/h'.concat((i%7).toString(),'.jpeg')),
+    avatar:  '/images/heads/h'.concat((i%7).toString(),'.jpeg'),
     description:
       'Ant Design, a design language for background applications, is refined by Ant UED Team.',
     content:

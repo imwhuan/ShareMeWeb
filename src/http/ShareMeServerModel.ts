@@ -1,7 +1,7 @@
-interface ShareMeDataModel {
+interface ShareMeDataModel<T> {
   statusCode: number;
   message: string;
-  data: any;
+  data: T;
   success: boolean;
   tag: any;
 }
@@ -59,6 +59,27 @@ interface AnchorApplyModel {
   anchorTypeDesc: string;
 }
 
+interface ApproveTitleModel {
+  id: number;
+  describe: string;
+  anchorType: number;
+  anchorTypeDesc: string;
+  approveStatus: number;
+  createTime: Date;
+  userId: number;
+  userName: string;
+}
+interface PageDataModel<T> {
+  total: number;
+  datas: Array<T>;
+}
+
+interface PostApproveActionModel {
+  applyId: number;
+  pass: boolean;
+  msg: string;
+}
+
 export {
   ShareMeDataModel,
   ShareMeRegistModel,
@@ -67,4 +88,7 @@ export {
   LiveUserInfoModel,
   LiveUserInfoBaseModel,
   AnchorApplyModel,
+  ApproveTitleModel,
+  PageDataModel,
+  PostApproveActionModel,
 };
