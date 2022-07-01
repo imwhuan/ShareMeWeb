@@ -99,6 +99,22 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(/* webpackChunkName: "live" */ "../views/live/AnchorApplyPage.vue"),
           },
+          {
+            path: "/liveroomlistpage",
+            name: "liveroomlistpage",
+            component: () =>
+              import(/* webpackChunkName: "live" */ "../views/live/LiveRoomListPage.vue"),
+          },
+          {
+            path: "/getinliveroom/:id",
+            name: "getinliveroom",
+            props: true,
+            meta: {
+              auth: true,
+            },
+            component: () =>
+              import(/* webpackChunkName: "live" */ "../views/live/GetInLiveRoom.vue"),
+          },
         ],
       },
       {

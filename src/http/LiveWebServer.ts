@@ -3,7 +3,7 @@ import { notification } from "ant-design-vue";
 import { GetUserToken } from "@/plugins/UseLocalDB";
 import { ShareMeDataModel } from "./ShareMeServerModel";
 
-const BaseUrl = process.env.VUE_APP_SERVER_LIVE;
+const BaseUrl = process.env.VUE_APP_SERVER_LIVE + "api/";
 
 const ShareMeServer = axios.create({
   baseURL: BaseUrl,

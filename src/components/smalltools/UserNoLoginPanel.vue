@@ -52,7 +52,7 @@ export default defineComponent({
   data(){
     return{
       loginvisible:ref(false),
-      bgimg:GetImageUrl('few50.jpeg')
+      bgimg:GetImageUrl('images/few50.jpeg')
     }
   },
   methods:{
